@@ -35,7 +35,7 @@ export class BlogEntity {
 	updateAt: Date;
 
 	@ManyToMany(() => TopicEntity)
-	@JoinTable()
+	@JoinTable({ name: 'blogs_topics' })
 	topics: TopicEntity[];
 
 	@ManyToOne(() => UserEntity, (UserEntity) => UserEntity.blogs)
