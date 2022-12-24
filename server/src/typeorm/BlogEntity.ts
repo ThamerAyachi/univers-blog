@@ -6,8 +6,10 @@ import {
 	JoinTable,
 	ManyToMany,
 	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CommentsEntity } from './CommentsEntity';
 import { TopicEntity } from './TopicEntity';
 import { UserEntity } from './UserEntity';
 
@@ -41,4 +43,7 @@ export class BlogEntity {
 	@ManyToOne(() => UserEntity, (UserEntity) => UserEntity.blogs)
 	@JoinColumn()
 	author: UserEntity;
+
+	@OneToMany(() => CommentsEntity, (CommentsEntity) => CommentsEntity.blog)
+	comments: CommentsEntity[];
 }

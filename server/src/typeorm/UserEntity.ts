@@ -7,6 +7,7 @@ import {
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BlogEntity } from './BlogEntity';
+import { CommentsEntity } from './CommentsEntity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -34,4 +35,7 @@ export class UserEntity {
 	@OneToMany(() => BlogEntity, (BlogEntity) => BlogEntity.author)
 	@JoinColumn()
 	blogs: BlogEntity[];
+
+	@OneToMany(() => CommentsEntity, (CommentsEntity) => CommentsEntity.author)
+	comments: CommentsEntity[];
 }
