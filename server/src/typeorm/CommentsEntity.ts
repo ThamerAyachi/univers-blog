@@ -8,7 +8,7 @@ export class CommentsEntity {
 	@PrimaryGeneratedColumn({ type: 'bigint' })
 	id: number;
 
-	@Column({ type: 'text' })
+	@Column({ type: 'longtext' })
 	content: string;
 
 	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })

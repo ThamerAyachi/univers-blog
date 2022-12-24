@@ -23,7 +23,7 @@ export class UserEntity {
 	@Column({ nullable: true })
 	avatar: string;
 
-	@Column({ type: 'text' })
+	@Column({ type: 'longtext' })
 	bio: string;
 
 	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
