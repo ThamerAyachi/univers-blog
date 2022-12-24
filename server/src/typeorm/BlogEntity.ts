@@ -3,9 +3,12 @@ import {
 	Column,
 	Entity,
 	JoinColumn,
+	JoinTable,
+	ManyToMany,
 	ManyToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TopicEntity } from './TopicEntity';
 import { UserEntity } from './UserEntity';
 
 @Entity({ name: 'blogs' })
@@ -30,6 +33,10 @@ export class BlogEntity {
 
 	@Column({ type: 'date', name: 'update_at', default: getCurrentDate() })
 	updateAt: Date;
+
+	@ManyToMany(() => TopicEntity)
+	@JoinTable()
+	topics: TopicEntity[];
 
 	@ManyToOne(() => UserEntity, (UserEntity) => UserEntity.blogs)
 	@JoinColumn()
