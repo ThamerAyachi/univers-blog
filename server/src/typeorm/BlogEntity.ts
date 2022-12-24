@@ -3,27 +3,27 @@ import {
 	Column,
 	Entity,
 	JoinColumn,
-	OneToMany,
+	ManyToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BlogEntity } from './BlogEntity';
+import { UserEntity } from './UserEntity';
 
-@Entity({ name: 'users' })
-export class UserEntity {
+@Entity({ name: 'blogs' })
+export class BlogEntity {
 	@PrimaryGeneratedColumn({ type: 'bigint' })
 	id: number;
 
-	@Column({ unique: true })
-	email: string;
+	@Column()
+	title: string;
 
 	@Column()
-	fullName: string;
+	content: string;
 
 	@Column({ nullable: true })
-	avatar: string;
+	cover: string;
 
-	@Column({ type: 'text' })
-	bio: string;
+	@Column({ default: 0 })
+	views: number;
 
 	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
 	createAt: Date;
@@ -31,7 +31,7 @@ export class UserEntity {
 	@Column({ type: 'date', name: 'update_at', default: getCurrentDate() })
 	updateAt: Date;
 
-	@OneToMany(() => BlogEntity, (BlogEntity) => BlogEntity.author)
+	@ManyToOne(() => UserEntity, (UserEntity) => UserEntity.blogs)
 	@JoinColumn()
-	blogs: BlogEntity[];
+	author: UserEntity;
 }
