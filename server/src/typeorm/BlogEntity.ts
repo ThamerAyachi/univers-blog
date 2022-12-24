@@ -1,4 +1,3 @@
-import { getCurrentDate } from 'src/shared/methods';
 import {
 	Column,
 	Entity,
@@ -30,10 +29,10 @@ export class BlogEntity {
 	@Column({ default: 0 })
 	views: number;
 
-	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'create_at' })
 	createAt: Date;
 
-	@Column({ type: 'date', name: 'update_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'update_at' })
 	updateAt: Date;
 
 	@ManyToMany(() => TopicEntity)

@@ -1,4 +1,3 @@
-import { getCurrentDate } from 'src/shared/methods';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'topics' })
@@ -9,9 +8,9 @@ export class TopicEntity {
 	@Column()
 	name: string;
 
-	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'create_at' })
 	createAt: Date;
 
-	@Column({ type: 'date', name: 'update_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'update_at' })
 	updateAt: Date;
 }

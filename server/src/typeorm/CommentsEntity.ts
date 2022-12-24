@@ -1,4 +1,3 @@
-import { getCurrentDate } from 'src/shared/methods';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BlogEntity } from './BlogEntity';
 import { UserEntity } from './UserEntity';
@@ -11,7 +10,7 @@ export class CommentsEntity {
 	@Column({ type: 'longtext' })
 	content: string;
 
-	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'create_at' })
 	createAt: Date;
 
 	@ManyToOne(() => UserEntity, (UserEntity) => UserEntity.comments)

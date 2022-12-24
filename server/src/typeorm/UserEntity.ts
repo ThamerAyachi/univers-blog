@@ -1,4 +1,3 @@
-import { getCurrentDate } from 'src/shared/methods';
 import {
 	Column,
 	Entity,
@@ -26,10 +25,10 @@ export class UserEntity {
 	@Column({ type: 'longtext' })
 	bio: string;
 
-	@Column({ type: 'date', name: 'create_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'create_at' })
 	createAt: Date;
 
-	@Column({ type: 'date', name: 'update_at', default: getCurrentDate() })
+	@Column({ type: 'date', name: 'update_at' })
 	updateAt: Date;
 
 	@OneToMany(() => BlogEntity, (BlogEntity) => BlogEntity.author)
