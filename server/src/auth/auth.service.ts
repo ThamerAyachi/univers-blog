@@ -5,6 +5,7 @@ import { UserEntity } from 'src/typeorm/UserEntity';
 import { encodePassword } from 'src/utils/bcrypt';
 import { Repository } from 'typeorm';
 import { SignupDto } from './dto/signup.dto';
+import { SerializedUser } from './serialize/SerializedUser';
 
 @Injectable()
 export class AuthService {
@@ -28,5 +29,11 @@ export class AuthService {
 	async findOneBy(condition: any): Promise<UserEntity> {
 		const user = await this.userRepository.findOneBy(condition);
 		return user;
+	}
+
+	async getAllUsers(): Promise<SerializedUser[]> {
+		const users = await this.userRepository.find();
+
+		return users.map((user) => new SerializedUser(user));
 	}
 }

@@ -1,8 +1,10 @@
 import {
 	BadRequestException,
 	Body,
+	ClassSerializerInterceptor,
 	Controller,
 	Post,
+	UseInterceptors,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
@@ -17,8 +19,9 @@ export class AuthController {
 
 	@Post('signup')
 	@UsePipes(ValidationPipe)
+	@UseInterceptors(ClassSerializerInterceptor)
 	async signup(@Body() dto: SignupDto) {
-		const ifUserFound = this.authService.findOneBy({ email: dto.email });
+		const ifUserFound = await this.authService.findOneBy({ email: dto.email });
 		if (ifUserFound) throw new BadRequestException(['Email already taken']);
 
 		const user: UserEntity = await this.authService.signup(dto);
