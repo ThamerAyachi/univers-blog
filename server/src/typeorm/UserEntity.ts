@@ -25,7 +25,7 @@ export class UserEntity {
 	@Column({ nullable: true })
 	avatar: string;
 
-	@Column({ type: 'longtext' })
+	@Column({ type: 'longtext', nullable: true })
 	bio: string;
 
 	@Column({ type: 'date', name: 'create_at' })
