@@ -28,7 +28,7 @@ export class UserController {
 	async fetchUserByEmail(
 		@Param('email') email: string,
 	): Promise<SerializedUser> {
-		const user = await this.userService.findOneBy({ email });
+		const user = await this.userService.findOneWithBy('email', email);
 		if (!user)
 			throw new BadRequestException(`User with email: "${email}" not found`);
 
@@ -38,7 +38,7 @@ export class UserController {
 	@Get('id/:id')
 	@UseInterceptors(ClassSerializerInterceptor)
 	async fetchUserById(@Param('id') id: string): Promise<SerializedUser> {
-		const user = await this.userService.findOneBy({ id });
+		const user = await this.userService.findOneWithBy('id', id);
 		if (!user) throw new BadRequestException(`User with id: "${id}" not found`);
 
 		return new SerializedUser(user);

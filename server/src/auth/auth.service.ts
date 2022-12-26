@@ -31,8 +31,21 @@ export class AuthService {
 		return user;
 	}
 
+	async findOneWithBy(parameter: string, value: string): Promise<UserEntity> {
+		const user = await this.userRepository
+			.createQueryBuilder('user')
+			.leftJoinAndSelect('user.blogs', 'blogs')
+			.leftJoinAndSelect('user.comments', 'comments')
+			.where(`user.${parameter}= :condition`, { condition: value })
+			.getOne();
+
+		return user;
+	}
+
 	async getAllUsers(): Promise<SerializedUser[]> {
-		const users = await this.userRepository.find();
+		const users = await this.userRepository.find({
+			relations: ['blogs', 'comments'],
+		});
 
 		return users.map((user) => new SerializedUser(user));
 	}
