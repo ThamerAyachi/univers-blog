@@ -5,8 +5,12 @@ import {
 	Get,
 	Param,
 	UseInterceptors,
+	Req,
 } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
+import { Request } from 'express';
 import { AuthService } from '../auth.service';
+import { JwtAuthGuard } from '../guard/JwtAuth.guard';
 import { SerializedUser } from '../serialize/SerializedUser';
 
 @Controller('user')
@@ -38,5 +42,12 @@ export class UserController {
 		if (!user) throw new BadRequestException(`User with id: "${id}" not found`);
 
 		return new SerializedUser(user);
+	}
+
+	@Get()
+	@UseGuards(JwtAuthGuard)
+	@UseInterceptors(ClassSerializerInterceptor)
+	getUser(@Req() req: Request): SerializedUser {
+		return new SerializedUser(req.user);
 	}
 }
