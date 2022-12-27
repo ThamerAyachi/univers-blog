@@ -17,10 +17,10 @@ export class BlogEntity {
 	@PrimaryGeneratedColumn({ type: 'bigint' })
 	id: number;
 
-	@Column()
+	@Column({ type: 'longtext' })
 	title: string;
 
-	@Column()
+	@Column({ type: 'longtext' })
 	content: string;
 
 	@Column({ nullable: true })

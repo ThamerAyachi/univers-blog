@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { getCurrentDate } from 'src/shared/methods';
 import { BlogEntity } from 'src/typeorm/BlogEntity';
 import { TopicEntity } from 'src/typeorm/TopicEntity';
 import { UserEntity } from 'src/typeorm/UserEntity';
@@ -19,10 +20,44 @@ export class BlogService {
 	) {}
 
 	async create(createBlogDto: CreateBlogDto, rawUser: UserEntity) {
-		const { id } = await this.userRepository.findOneBy({
+		const user = await this.userRepository.findOneBy({
 			email: rawUser.email,
 		});
-		return id;
+
+		const blog = this.blogRepository.create({
+			title: createBlogDto.title,
+			content: createBlogDto.content,
+			cover: createBlogDto.cover,
+			createAt: getCurrentDate(),
+			updateAt: getCurrentDate(),
+		});
+
+		/* Set Topics required for blog */
+		const finalTopics: TopicEntity[] = [];
+		const _topics = await this.topicRepository.find();
+		for (let topic of createBlogDto.topics) {
+			let flag = 0;
+			_topics.forEach(async (_topic) => {
+				if (topic == _topic.name) flag++;
+			});
+			if (flag == 0) {
+				let _topic = this.topicRepository.create({
+					name: topic,
+					createAt: getCurrentDate(),
+					updateAt: getCurrentDate(),
+				});
+				_topic = await this.topicRepository.save(_topic);
+				finalTopics.push(_topic);
+			} else {
+				const _topic = await this.topicRepository.findOneBy({ name: topic });
+				finalTopics.push(_topic);
+			}
+		}
+		/* Final set Topics and get it in "finalTopic" */
+
+		blog.topics = finalTopics;
+		blog.author = user;
+		await this.blogRepository.save(blog);
 	}
 
 	async findAll(): Promise<BlogEntity[]> {

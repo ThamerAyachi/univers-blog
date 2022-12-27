@@ -10,6 +10,7 @@ import {
 	ValidationPipe,
 	UseGuards,
 	Req,
+	HttpStatus,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guard/JwtAuth.guard';
@@ -27,7 +28,8 @@ export class BlogController {
 	@UsePipes(ValidationPipe)
 	@UseGuards(JwtAuthGuard)
 	create(@Body() createBlogDto: CreateBlogDto, @Req() req: Request) {
-		return this.blogService.create(createBlogDto, req.user as UserEntity);
+		this.blogService.create(createBlogDto, req.user as UserEntity);
+		return { message: 'Blog created', status: HttpStatus.CREATED };
 	}
 
 	@Get()
