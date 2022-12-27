@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { SerializedUser } from 'src/auth/serialize/SerializedUser';
 import { getCurrentDate } from 'src/shared/methods';
 import { BlogEntity } from 'src/typeorm/BlogEntity';
 import { TopicEntity } from 'src/typeorm/TopicEntity';
@@ -61,7 +62,11 @@ export class BlogService {
 	}
 
 	async findAll(): Promise<BlogEntity[]> {
-		return await this.blogRepository.find();
+		let blogs = await this.blogRepository.find({
+			relations: ['author', 'topics'],
+		});
+		blogs.forEach((blog) => delete blog.author.password);
+		return blogs;
 	}
 
 	findOne(id: number) {
