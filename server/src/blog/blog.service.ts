@@ -89,8 +89,13 @@ export class BlogService {
 		await this.blogRepository.save(blog);
 	}
 
-	update(id: number, updateBlogDto: UpdateBlogDto) {
-		return `This action updates a #${id} blog`;
+	async update(id: number, updateBlogDto: UpdateBlogDto) {
+		const blog = await this.blogRepository.findOneBy({ id });
+		blog.title = updateBlogDto.title;
+		blog.content = updateBlogDto.content;
+		blog.updateAt = getCurrentDate() as unknown as Date;
+
+		await this.blogRepository.save(blog);
 	}
 
 	remove(id: number) {

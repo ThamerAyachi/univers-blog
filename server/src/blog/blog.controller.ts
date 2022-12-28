@@ -51,8 +51,26 @@ export class BlogController {
 	}
 
 	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
-		return this.blogService.update(+id, updateBlogDto);
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(ValidationPipe)
+	async update(
+		@Param('id') id: string,
+		@Body() updateBlogDto: UpdateBlogDto,
+		@Req() req: Request,
+	) {
+		const blog = await this.blogService.findOne('id', id);
+		if (!blog)
+			throw new BadRequestException([`Article with id #${id} not found`]);
+
+		const user: UserEntity = req.user as UserEntity;
+		if (blog.author.email != user.email)
+			throw new BadRequestException([
+				" You don't have proems to update this article",
+			]);
+
+		await this.blogService.update(+id, updateBlogDto);
+
+		return { message: 'Update succuss', status: HttpStatus.OK };
 	}
 
 	@Delete(':id')
