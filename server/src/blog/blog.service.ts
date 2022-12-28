@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SerializedUser } from 'src/auth/serialize/SerializedUser';
 import { getCurrentDate } from 'src/shared/methods';
@@ -78,6 +78,15 @@ export class BlogService {
 			.getOne();
 		if (blog) delete blog.author.password;
 		return blog;
+	}
+
+	async blogView(id: number): Promise<void> {
+		const blog = await this.blogRepository.findOneBy({ id });
+		if (!blog)
+			throw new BadRequestException([`Article with id #${id} not found`]);
+
+		blog.views++;
+		await this.blogRepository.save(blog);
 	}
 
 	update(id: number, updateBlogDto: UpdateBlogDto) {

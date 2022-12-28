@@ -45,6 +45,8 @@ export class BlogController {
 		if (!blog)
 			throw new BadRequestException([`Article with id #${id} not found`]);
 
+		this.blogService.blogView(+id);
+
 		return blog;
 	}
 
