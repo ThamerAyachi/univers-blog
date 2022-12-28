@@ -69,8 +69,15 @@ export class BlogService {
 		return blogs;
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} blog`;
+	async findOne(parameter: string, value: string): Promise<BlogEntity> {
+		const blog = await this.blogRepository
+			.createQueryBuilder('blog')
+			.leftJoinAndSelect('blog.author', 'author')
+			.leftJoinAndSelect('blog.comments', 'comments')
+			.where(`blog.${parameter}= :condition`, { condition: value })
+			.getOne();
+		if (blog) delete blog.author.password;
+		return blog;
 	}
 
 	update(id: number, updateBlogDto: UpdateBlogDto) {

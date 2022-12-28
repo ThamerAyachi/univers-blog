@@ -11,6 +11,7 @@ import {
 	UseGuards,
 	Req,
 	HttpStatus,
+	BadRequestException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guard/JwtAuth.guard';
@@ -37,9 +38,14 @@ export class BlogController {
 		return await this.blogService.findAll();
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.blogService.findOne(+id);
+	@Get('single/:id')
+	async findOne(@Param('id') id: string): Promise<BlogEntity> {
+		const blog = await this.blogService.findOne('id', id);
+
+		if (!blog)
+			throw new BadRequestException([`Article with id #${id} not found`]);
+
+		return blog;
 	}
 
 	@Patch(':id')
