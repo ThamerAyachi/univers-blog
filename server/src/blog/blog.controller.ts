@@ -43,7 +43,7 @@ export class BlogController {
 		const blog = await this.blogService.findOne('id', id);
 
 		if (!blog)
-			throw new BadRequestException([`Article with id #${id} not found`]);
+			throw new BadRequestException(`Article with id #${id} not found`);
 
 		this.blogService.blogView(+id);
 
@@ -73,8 +73,20 @@ export class BlogController {
 		return { message: 'Update succuss', status: HttpStatus.OK };
 	}
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.blogService.remove(+id);
+	@Delete('delete/:id')
+	@UseGuards(JwtAuthGuard)
+	async remove(@Param('id') id: string, @Req() req: Request) {
+		const blog = await this.blogService.findOne('id', id);
+		if (!blog)
+			throw new BadRequestException(`Article with id #${id} not found`);
+
+		const user: UserEntity = req.user as UserEntity;
+		if (blog.author.email != user.email)
+			throw new BadRequestException([
+				" You don't have proems to delete this article",
+			]);
+		await this.blogService.remove(id);
+
+		return { message: 'Delete succuss', status: HttpStatus.OK };
 	}
 }

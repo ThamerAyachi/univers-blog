@@ -91,6 +91,9 @@ export class BlogService {
 
 	async update(id: number, updateBlogDto: UpdateBlogDto) {
 		const blog = await this.blogRepository.findOneBy({ id });
+		if (!blog)
+			throw new BadRequestException(`Article with id #${id} not found`);
+
 		blog.title = updateBlogDto.title;
 		blog.content = updateBlogDto.content;
 		blog.updateAt = getCurrentDate() as unknown as Date;
@@ -98,7 +101,11 @@ export class BlogService {
 		await this.blogRepository.save(blog);
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} blog`;
+	async remove(id: string) {
+		const blog = await this.blogRepository.findOneBy({ id: +id });
+		if (!blog)
+			throw new BadRequestException(`Article with id #${id} not found`);
+
+		await this.blogRepository.remove(blog);
 	}
 }
