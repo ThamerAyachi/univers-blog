@@ -5,6 +5,7 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
 import { TopicModule } from './topic/topic.module';
 import { AuthModule } from './auth/auth.module';
 import { BlogModule } from './blog/blog.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
 	imports: [
@@ -13,6 +14,7 @@ import { BlogModule } from './blog/blog.module';
 		TopicModule,
 		AuthModule,
 		BlogModule,
+		CommentModule,
 	],
 	controllers: [],
 	providers: [],
