@@ -3,7 +3,6 @@ import {
 	Get,
 	Post,
 	Body,
-	Patch,
 	Param,
 	Delete,
 	UsePipes,
@@ -44,7 +43,12 @@ export class CommentController {
 
 	@Get('single/:id')
 	async findOne(@Param('id') id: string): Promise<CommentsEntity> {
-		return await this.commentService.findOne({ id });
+		const comment = await this.commentService.findOneComment('id', id);
+
+		if (!comment)
+			throw new BadRequestException(`Comment with id #${id} not found`);
+
+		return comment;
 	}
 
 	@Delete(':id')

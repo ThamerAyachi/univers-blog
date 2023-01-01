@@ -54,6 +54,21 @@ export class CommentService {
 		return comment;
 	}
 
+	async findOneComment(
+		parameter: string,
+		value: string,
+	): Promise<CommentsEntity> {
+		const comment = await this.commentsRepository
+			.createQueryBuilder('comments')
+			.leftJoinAndSelect('comments.author', 'author')
+			.leftJoinAndSelect('comments.blog', 'blog')
+			.where(`comments.${parameter}= :condition`, { condition: value })
+			.getOne();
+
+		if (comment) delete comment.author.password;
+		return comment;
+	}
+
 	remove(id: number) {
 		return `This action removes a #${id} comment`;
 	}
