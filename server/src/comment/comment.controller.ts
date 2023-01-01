@@ -10,6 +10,7 @@ import {
 	ValidationPipe,
 	UseGuards,
 	Req,
+	BadRequestException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guard/JwtAuth.guard';
@@ -29,6 +30,10 @@ export class CommentController {
 		@Param('blogId') blogId: string,
 		@Req() req: Request,
 	) {
+		const blog = await this.commentService.findOneBlog({ id: blogId });
+		if (!blog)
+			throw new BadRequestException(`Article with id #${blogId} not found`);
+
 		return this.commentService.create(
 			createCommentDto,
 			blogId,

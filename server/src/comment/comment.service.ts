@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { getCurrentDate } from 'src/shared/methods';
 import { BlogEntity } from 'src/typeorm/BlogEntity';
@@ -25,6 +25,8 @@ export class CommentService {
 	) {
 		const user = await this.findOneUser({ email: _user.email });
 		const blog = await this.findOneBlog({ id: blogId });
+		if (!blog)
+			throw new BadRequestException(`Article with id #${blogId} not found`);
 
 		const comment = this.commentsRepository.create({
 			...createCommentDto,
