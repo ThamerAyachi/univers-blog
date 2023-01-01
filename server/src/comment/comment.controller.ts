@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guard/JwtAuth.guard';
+import { CommentsEntity } from 'src/typeorm/CommentsEntity';
 import { UserEntity } from 'src/typeorm/UserEntity';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -29,21 +30,21 @@ export class CommentController {
 		@Body() createCommentDto: CreateCommentDto,
 		@Param('blogId') blogId: string,
 		@Req() req: Request,
-	) {
+	): Promise<CommentsEntity> {
 		const blog = await this.commentService.findOneBlog({ id: blogId });
 		if (!blog)
 			throw new BadRequestException(`Article with id #${blogId} not found`);
 
-		return this.commentService.create(
+		return await this.commentService.create(
 			createCommentDto,
 			blogId,
 			req.user as UserEntity,
 		);
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.commentService.findOne(+id);
+	@Get('single/:id')
+	async findOne(@Param('id') id: string): Promise<CommentsEntity> {
+		return await this.commentService.findOne({ id });
 	}
 
 	@Delete(':id')

@@ -22,7 +22,7 @@ export class CommentService {
 		createCommentDto: CreateCommentDto,
 		blogId: string,
 		_user: UserEntity,
-	) {
+	): Promise<CommentsEntity> {
 		const user = await this.findOneUser({ email: _user.email });
 		const blog = await this.findOneBlog({ id: blogId });
 		if (!blog)
@@ -39,17 +39,17 @@ export class CommentService {
 		return finalComment;
 	}
 
-	async findOneUser(condition: any) {
+	async findOneUser(condition: any): Promise<UserEntity> {
 		const user = await this.userRepository.findOneBy(condition);
 		return user;
 	}
 
-	async findOneBlog(condition: any) {
+	async findOneBlog(condition: any): Promise<BlogEntity> {
 		const blog = await this.blogRepository.findOneBy(condition);
 		return blog;
 	}
 
-	async findOne(condition: any) {
+	async findOne(condition: any): Promise<CommentsEntity> {
 		const comment = await this.commentsRepository.findOneBy(condition);
 		return comment;
 	}
