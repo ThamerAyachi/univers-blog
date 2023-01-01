@@ -49,8 +49,9 @@ export class CommentService {
 		return blog;
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} comment`;
+	async findOne(condition: any) {
+		const comment = await this.commentsRepository.findOneBy(condition);
+		return comment;
 	}
 
 	remove(id: number) {
