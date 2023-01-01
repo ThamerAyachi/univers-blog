@@ -10,6 +10,7 @@ import {
 	UseGuards,
 	Req,
 	BadRequestException,
+	HttpStatus,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guard/JwtAuth.guard';
@@ -51,8 +52,19 @@ export class CommentController {
 		return comment;
 	}
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.commentService.remove(+id);
+	@Delete('delete/:id')
+	@UseGuards(JwtAuthGuard)
+	async remove(@Param('id') id: string, @Req() req: Request) {
+		const comment = await this.commentService.findOneComment('id', id);
+		if (!comment)
+			throw new BadRequestException(`Comment with id #${id} not found`);
+
+		const user: UserEntity = req.user as UserEntity;
+		if (comment.author.email != user.email)
+			throw new BadRequestException(
+				" You don't have proems to delete this comment",
+			);
+		await this.commentService.remove(id);
+		return { message: 'Delete succuss', status: HttpStatus.OK };
 	}
 }

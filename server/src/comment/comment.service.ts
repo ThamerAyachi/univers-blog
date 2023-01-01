@@ -69,7 +69,11 @@ export class CommentService {
 		return comment;
 	}
 
-	remove(id: number) {
-		return `This action removes a #${id} comment`;
+	async remove(id: string) {
+		const comment = await this.commentsRepository.findOneBy({ id: +id });
+		if (!comment)
+			throw new BadRequestException(`Comment with id #${id} not found`);
+
+		await this.commentsRepository.remove(comment);
 	}
 }
