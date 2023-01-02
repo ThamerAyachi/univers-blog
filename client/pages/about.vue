@@ -1,6 +1,6 @@
 <template>
 	<div>
-	<nuxt-link to="/">Back</nuxt-link>
+	<nuxt-link to="/" class="text-blue-400 hover:text-blue-600">Back</nuxt-link>
 		<p>hello in about page</p>
 	</div>
 </template>
