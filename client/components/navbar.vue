@@ -12,9 +12,10 @@
 						<input
 							type="text"
 							id="default-search"
-							class="block p-2 text-sm border border-gray-300 rounded text-gray-700 placeholder-gray-700"
+							class="block p-2 w-72 text-sm border border-gray-300 rounded text-gray-700 placeholder-gray-700"
 							placeholder="Search..."
 							v-model="searchBar"
+							autocomplete="off"
 							required
 						/>
 						<button type="submit" class="absolute right-2.5 bottom-2.5">
