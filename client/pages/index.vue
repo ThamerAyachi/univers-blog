@@ -1,22 +1,19 @@
 <template>
-	<div>
-	<nuxt-link to="/about" class="text-blue-400 hover:text-blue-600">about</nuxt-link>
-		<p>hello in index page</p>
+	<div class="grid xl:grid-cols-12 gap-5 grid-cols-1">
+		<div class="bg-green-400 col-span-3 hidden xl:block">1</div>
+		<div class="bg-red-400 col-span-6">2</div>
+		<div class="bg-blue-400 col-span-3 hidden xl:block">3</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-	setup () {
-		
-
-		return {}
-	}
-})
+	setup() {
+		return {};
+	},
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
