@@ -1,7 +1,7 @@
 <template>
-	<header>
+	<header class="mb-20">
 		<nav
-			class="bg-white flex justify-between items-center p-2 px-4 shadow xl:px-32"
+			class="bg-white flex justify-between items-center p-2 px-4 shadow xl:px-32 fixed z-50 w-full top-0"
 		>
 			<div class="flex space-x-3 items-center">
 				<nuxt-link to="/" class="w-10">
