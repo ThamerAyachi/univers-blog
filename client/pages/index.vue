@@ -59,7 +59,9 @@
 				</nuxt-link>
 			</div>
 		</div>
-		<div class="col-span-6">2</div>
+		<div class="col-span-6 space-y-2">
+			<Article v-for="i in 5" />
+		</div>
 		<div class="col-span-3 hidden xl:block">3</div>
 	</div>
 </template>
