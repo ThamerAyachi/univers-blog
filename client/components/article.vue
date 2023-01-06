@@ -24,10 +24,38 @@
 				</div>
 				<!-- name & date -->
 				<div class="text-sm">
-					<nuxt-link to="/" class="font-semibold text-gray-700"
+					<nuxt-link
+						to="/"
+						class="font-semibold text-gray-700 hover:text-black hover:bg-gray-100 p-1 rounded"
 						>Profile name</nuxt-link
 					>
-					<p class="text-xs text-gray-500">Jan 6</p>
+					<p class="text-xs text-gray-500 p-1">Jan 6</p>
+				</div>
+			</div>
+			<!-- content -->
+			<div class="lg:px-10 space-y-2">
+				<nuxt-link
+					to="/"
+					class="lg:text-3xl text-lg font-bold hover:text-purple-600"
+					>C elements that are not supported in C++🚫</nuxt-link
+				>
+				<!-- tags -->
+				<div class="flex space-x-2 text-sm">
+					<p
+						v-for="i in 3"
+						class="px-2 py-1 text-gray-600 border-white hover:border-green-300 border hover:bg-gray-100 rounded-lg"
+					>
+						<span class="text-green-600">#</span>
+						tag
+					</p>
+				</div>
+				<!-- actions -->
+				<div class="text-gray-700 flex justify-between items-center">
+					<div class="flex items-center space-x-2">
+						<nuxt-icon name="comment" />
+						<span class="pb-1">3 comments</span>
+					</div>
+					<div>save</div>
 				</div>
 			</div>
 		</div>
