@@ -59,10 +59,31 @@
 				</nuxt-link>
 			</div>
 		</div>
+		<!-- section 2 -->
 		<div class="col-span-6 space-y-2">
 			<Article v-for="i in 5" />
 		</div>
-		<div class="col-span-3 hidden xl:block">3</div>
+		<!-- section 3 -->
+		<div class="col-span-3 hidden xl:block">
+			<!-- listing -->
+			<div class="bg-gray-50 border border-gray-300 rounded shadow">
+				<!-- header -->
+				<div class="flex justify-between p-5 border-b border-gray-200">
+					<div class="text-xl text-black font-bold">Listings</div>
+					<nuxt-link to="/" class="text-sm text-purple-600 font-semibold"
+						>See all</nuxt-link
+					>
+				</div>
+				<ListListing v-for="i in 5" />
+				<!-- create listing -->
+				<nuxt-link
+					to="/"
+					class="w-full flex justify-center p-3 text-gray-800 hover:text-purple-600 font-semibold transform duration-200"
+				>
+					Create a Listing
+				</nuxt-link>
+			</div>
+		</div>
 	</div>
 </template>
 
