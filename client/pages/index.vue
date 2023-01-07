@@ -64,9 +64,9 @@
 			<Article v-for="i in 5" />
 		</div>
 		<!-- section 3 -->
-		<div class="col-span-3 hidden xl:block">
+		<div class="col-span-3 hidden xl:block space-y-3">
 			<!-- listing -->
-			<div class="bg-gray-50 border border-gray-300 rounded shadow">
+			<div class="bg-gray-50 border border-gray-200 rounded shadow-sm">
 				<!-- header -->
 				<div class="flex justify-between p-5 border-b border-gray-200">
 					<div class="text-xl text-black font-bold">Listings</div>
@@ -81,6 +81,27 @@
 					class="w-full flex justify-center p-3 text-gray-800 hover:text-purple-600 font-semibold transform duration-200"
 				>
 					Create a Listing
+				</nuxt-link>
+			</div>
+			<!-- questions -->
+			<div class="bg-gray-50 border border-gray-200 rounded shadow-sm">
+				<!-- header -->
+				<div class="flex justify-between p-5 border-b border-gray-200">
+					<div class="text-xl text-black font-bold">Questions</div>
+					<nuxt-link to="/" class="text-sm text-purple-600 font-semibold"
+						>See all</nuxt-link
+					>
+				</div>
+				<!-- questions -->
+				<div>
+					<question v-for="i in 3" />
+				</div>
+				<!-- add question -->
+				<nuxt-link
+					to="/"
+					class="w-full flex justify-center p-3 text-gray-800 hover:text-purple-600 font-semibold transform duration-200"
+				>
+					Ask question
 				</nuxt-link>
 			</div>
 		</div>
