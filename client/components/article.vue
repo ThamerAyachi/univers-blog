@@ -3,13 +3,13 @@
 		class="bg-white border-gray-200 border shadow-sm rounded overflow-hidden"
 	>
 		<!-- image place -->
-		<div>
+		<nuxt-link to="/">
 			<img
 				src="https://res.cloudinary.com/practicaldev/image/fetch/s--hfQzBixF--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fv0w1bgke78vu5yy9uc3.jpg"
 				alt="Article image"
 				class="w-full"
 			/>
-		</div>
+		</nuxt-link>
 
 		<!-- content place -->
 		<div class="p-3 space-y-3">
