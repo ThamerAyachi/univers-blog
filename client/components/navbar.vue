@@ -39,11 +39,12 @@
 				</form>
 			</div>
 			<div class="space-x-4 flex">
-				<button
+				<nuxt-link
+					to="/enter"
 					class="text-gray-500 hover:text-purple-600 hover:bg-purple-200 p-2 rounded"
 				>
 					Log in
-				</button>
+				</nuxt-link>
 				<button
 					class="text-purple-600 font-semibold border border-purple-600 p-2 rounded hover:bg-purple-600 hover:text-white"
 				>
