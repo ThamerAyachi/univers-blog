@@ -45,11 +45,12 @@
 				>
 					Log in
 				</nuxt-link>
-				<button
+				<nuxt-link
+					to="/register"
 					class="text-purple-600 font-semibold border border-purple-600 p-2 rounded hover:bg-purple-600 hover:text-white"
 				>
 					Create account
-				</button>
+				</nuxt-link>
 			</div>
 		</nav>
 	</header>
