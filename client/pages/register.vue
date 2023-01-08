@@ -96,7 +96,7 @@ const registerFun = async () => {
 	if (err) {
 		result.value.isFound = true;
 		result.value.messages = err;
-	} else {
+	} else if (res) {
 		result.value.isFound = false;
 		router.push("/enter?create=1");
 	}
