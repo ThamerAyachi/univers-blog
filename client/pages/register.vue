@@ -19,7 +19,7 @@
 					</div>
 				</div>
 
-				<form>
+				<form @submit.prevent="registerFun">
 					<!-- name input -->
 					<div class="mb-6 space-y-2">
 						<label class="font-semibold" for="name">Full name</label>
@@ -27,6 +27,7 @@
 							type="text"
 							id="name"
 							class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+							v-model="register.fullName"
 						/>
 					</div>
 
@@ -37,6 +38,7 @@
 							type="email"
 							id="email"
 							class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+							v-model="register.email"
 						/>
 					</div>
 
@@ -47,7 +49,15 @@
 							type="password"
 							id="password"
 							class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+							v-model="register.password"
 						/>
+					</div>
+
+					<div
+						v-if="result.isFound"
+						class="mb-5 bg-red-100 p-2 rounded border border-red-300 text-red-800"
+					>
+						<p v-for="m in result.messages">{{ m }}</p>
 					</div>
 
 					<!-- Submit button -->
@@ -73,6 +83,24 @@
 	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const router = useRouter();
+
+const register = ref({ fullName: "", email: "", password: "" });
+const result = ref({ isFound: false, messages: [] });
+
+const registerFun = async () => {
+	const [res, err] = await registerWithEmail(register.value);
+	if (err) {
+		result.value.isFound = true;
+		result.value.messages = err;
+	} else {
+		result.value.isFound = false;
+		router.push("/enter?create=1");
+	}
+};
+</script>
 
 <style scoped></style>

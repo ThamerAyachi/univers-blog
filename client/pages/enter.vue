@@ -20,6 +20,12 @@
 				</div>
 
 				<form>
+					<div
+						v-if="create"
+						class="bg-green-100 p-2 my-2 rounded border border-green-300 text-green-800"
+					>
+						Create account succuss .
+					</div>
 					<!-- Email input -->
 					<div class="mb-6 space-y-2">
 						<label class="font-semibold" for="email">Email address</label>
@@ -63,6 +69,10 @@
 	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const router: any = useRouter();
+const currentRoute = ref(router.currentRoute);
+const create = ref(currentRoute.value.query.create);
+</script>
 
 <style scoped></style>
