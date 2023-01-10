@@ -50,10 +50,13 @@ export class AuthController {
 			email: user.email,
 		});
 
+		delete user.password;
+
 		return {
 			message: 'Sign In Succuss!',
 			status: HttpStatus.CREATED,
 			token: token,
+			user: user,
 		};
 	}
 }

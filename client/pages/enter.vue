@@ -19,7 +19,7 @@
 					</div>
 				</div>
 
-				<form>
+				<form @submit.prevent="enterFun">
 					<div
 						v-if="create"
 						class="bg-green-100 p-2 my-2 rounded border border-green-300 text-green-800"
@@ -33,6 +33,7 @@
 							type="text"
 							id="email"
 							class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+							v-model="enter.email"
 						/>
 					</div>
 
@@ -43,6 +44,7 @@
 							type="password"
 							id="password"
 							class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
+							v-model="enter.password"
 						/>
 					</div>
 
@@ -70,9 +72,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+import { enterWithEmail } from "~~/composables/useAuth";
+
 const router: any = useRouter();
 const currentRoute = ref(router.currentRoute);
 const create = ref(currentRoute.value.query.create);
+
+const enter = ref({ email: "", password: "" });
+const result = ref(true);
+
+const enterFun = async () => {
+	const [res, err] = await enterWithEmail(enter.value);
+	if (err) result.value = false;
+	else if (res) console.log(res);
+};
 </script>
 
 <style scoped></style>
