@@ -1,3 +1,5 @@
+import IBlog from "./IBlog";
+
 export default interface IUser {
 	id?: string;
 	fullName?: string;
@@ -7,4 +9,5 @@ export default interface IUser {
 	bio?: string;
 	createAt?: string;
 	updateAt?: string;
+	blogs?: IBlog[];
 }
