@@ -39,11 +39,11 @@
 				<div class="flex space-x-2 text-sm">
 					<nuxt-link
 						to="/"
-						v-for="i in 3"
-						class="px-2 py-1 text-gray-600 border-white transform duration-200 hover:border-green-300 border hover:bg-gray-100 rounded-lg"
+						v-for="topic in article.topics"
+						:class="`px-2 py-1 text-gray-600 border-white transform duration-200  ${getColor()} border hover:bg-gray-100 rounded-lg`"
 					>
-						<span class="text-green-600">#</span>
-						tag
+						<span class="hashtag">#</span>
+						{{ topic.name }}
 					</nuxt-link>
 				</div>
 				<!-- actions -->
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import useColor from "~~/shared/useColor";
+
 export default {
 	props: {
 		article: {
@@ -78,11 +80,106 @@ export default {
 			createAt: String,
 			updateAt: String,
 			author: Object,
-			topics: Object,
+			topics: Array,
 			comments: Object,
+		},
+	},
+	methods: {
+		getColor() {
+			const color = useColor();
+			return color;
 		},
 	},
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* colors */
+.red .hashtag {
+	color: #dc2626 !important; /* 600 */
+}
+.red:hover {
+	border: 1px solid #fca5a5 !important; /* 300 */
+	background-color: #fef2f2; /* 50 */
+}
+
+.zinc .hashtag {
+	color: #52525b !important;
+}
+.zinc:hover {
+	border: 1px solid #d4d4d8 !important;
+	background-color: #fafafa;
+}
+
+.orange .hashtag {
+	color: #ea580c !important; /* 600 */
+}
+.orange:hover {
+	border: 1px solid #fdba74 !important; /* 300 */
+	background-color: #fff7ed; /* 50 */
+}
+
+.yellow .hashtag {
+	color: #ca8a04 !important; /* 600 */
+}
+.yellow:hover {
+	border: 1px solid #fde047 !important; /* 300 */
+	background-color: #fefce8; /* 50 */
+}
+
+.lime .hashtag {
+	color: #65a30d !important; /* 600 */
+}
+.lime:hover {
+	border: 1px solid #bef264 !important; /* 300 */
+	background-color: #f7fee7; /* 50 */
+}
+
+.green .hashtag {
+	color: #16a34a !important; /* 600 */
+}
+.green:hover {
+	border: 1px solid #86efac !important; /* 300 */
+	background-color: #f0fdf4; /* 50 */
+}
+
+.teal .hashtag {
+	color: #0d9488 !important; /* 600 */
+}
+.teal:hover {
+	border: 1px solid #5eead4 !important; /* 300 */
+	background-color: #f0fdfa; /* 50 */
+}
+
+.cyan .hashtag {
+	color: #0891b2 !important; /* 600 */
+}
+.cyan:hover {
+	border: 1px solid #67e8f9 !important; /* 300 */
+	background-color: #ecfeff; /* 50 */
+}
+
+.blue .hashtag {
+	color: #2563eb !important; /* 600 */
+}
+.blue:hover {
+	border: 1px solid #93c5fd !important; /* 300 */
+	background-color: #eff6ff; /* 50 */
+}
+
+.indigo .hashtag {
+	color: #4f46e5 !important; /* 600 */
+}
+.indigo:hover {
+	border: 1px solid #a5b4fc !important; /* 300 */
+	background-color: #eef2ff; /* 50 */
+}
+
+.pink .hashtag {
+	color: #db2777 !important; /* 600 */
+}
+.pink:hover {
+	border: 1px solid #f9a8d4 !important; /* 300 */
+	background-color: #fdf2f8; /* 50 */
+}
+</style>
