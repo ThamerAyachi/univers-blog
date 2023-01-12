@@ -61,7 +61,7 @@
 		</div>
 		<!-- section 2 -->
 		<div class="col-span-6 space-y-2">
-			<Article v-for="i in 5" />
+			<Article v-for="article in articles" :article="article" />
 		</div>
 		<!-- section 3 -->
 		<div class="col-span-3 hidden xl:block space-y-3">
@@ -111,7 +111,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-console.log(await useArticles());
+const articles = await useArticles();
 
 const links = ref([
 	{

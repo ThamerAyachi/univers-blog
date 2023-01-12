@@ -3,12 +3,8 @@
 		class="bg-white border-gray-200 border shadow-sm rounded overflow-hidden"
 	>
 		<!-- image place -->
-		<nuxt-link to="/">
-			<img
-				src="https://res.cloudinary.com/practicaldev/image/fetch/s--hfQzBixF--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fv0w1bgke78vu5yy9uc3.jpg"
-				alt="Article image"
-				class="w-full"
-			/>
+		<nuxt-link to="/" v-if="article.cover">
+			<img :src="article.cover" alt="Article image" class="w-full" />
 		</nuxt-link>
 
 		<!-- content place -->
@@ -18,7 +14,7 @@
 				<!-- picture -->
 				<div class="w-12 rounded-full overflow-hidden flex items-center">
 					<img
-						src="https://res.cloudinary.com/practicaldev/image/fetch/s--_FuTrBN_--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/913211/dda94e3e-b52b-4369-a253-af284fd699a2.jpg"
+						:src="article.author.avatar ? article.author.avatar : 'user.png'"
 						alt="Profile picture"
 					/>
 				</div>
@@ -27,7 +23,7 @@
 					<nuxt-link
 						to="/"
 						class="font-semibold text-gray-700 transform duration-200 hover:text-black hover:bg-gray-100 p-1 rounded"
-						>Profile name</nuxt-link
+						>{{ article.author?.fullName }}</nuxt-link
 					>
 					<p class="text-xs text-gray-500 p-1">Jan 6</p>
 				</div>
@@ -37,7 +33,7 @@
 				<nuxt-link
 					to="/"
 					class="lg:text-3xl text-lg font-bold transform duration-200 hover:text-purple-600"
-					>C elements that are not supported in C++🚫</nuxt-link
+					>{{ article.title }}</nuxt-link
 				>
 				<!-- tags -->
 				<div class="flex space-x-2 text-sm">
@@ -70,6 +66,23 @@
 	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script>
+export default {
+	props: {
+		article: {
+			id: String,
+			title: String,
+			content: String,
+			cover: String,
+			views: Number,
+			createAt: String,
+			updateAt: String,
+			author: Object,
+			topics: Object,
+			comments: Object,
+		},
+	},
+};
+</script>
 
 <style scoped></style>
