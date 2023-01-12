@@ -111,6 +111,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
+useArticles();
+
 const links = ref([
 	{
 		icon: "home",
