@@ -111,7 +111,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-useArticles();
+console.log(await useArticles());
 
 const links = ref([
 	{

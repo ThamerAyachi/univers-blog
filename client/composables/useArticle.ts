@@ -1,9 +1,12 @@
+import IBlog from "~~/types/IBlog";
+
 export async function useArticles() {
 	try {
-		const res = await $fetch("http://localhost:5000/api/blog", {
+		const config = useRuntimeConfig();
+		const res = await $fetch<IBlog[]>(`${config.public.API_URL}/blog`, {
 			method: "GET",
 		});
-		console.log(res);
+		return res;
 	} catch (e) {
 		console.log(e);
 	}
