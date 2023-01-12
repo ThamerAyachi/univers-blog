@@ -1,4 +1,5 @@
 import IBlog from "./IBlog";
+import IComment from "./IComment";
 
 export default interface IUser {
 	id?: string;
@@ -10,4 +11,5 @@ export default interface IUser {
 	createAt?: string;
 	updateAt?: string;
 	blogs?: IBlog[];
+	comments?: IComment[];
 }

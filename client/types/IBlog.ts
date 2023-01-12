@@ -1,3 +1,4 @@
+import IComment from "./IComment";
 import ITopic from "./ITopic";
 import IUser from "./IUser";
 
@@ -11,4 +12,5 @@ export default interface IBlog {
 	updateAt?: string;
 	author?: IUser;
 	topics?: ITopic[];
+	comments?: IComment[];
 }
