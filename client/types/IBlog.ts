@@ -1,3 +1,4 @@
+import ITopic from "./ITopic";
 import IUser from "./IUser";
 
 export default interface IBlog {
