@@ -13,7 +13,9 @@ export class TopicService {
 	) {}
 
 	async getTopics() {
-		return this.topicRepository.find();
+		return this.topicRepository.find({
+			relations: ['blogs'],
+		});
 	}
 
 	async createTopic(createTopicDto: CreateTopicDto) {

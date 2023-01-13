@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
+import { BlogEntity } from './BlogEntity';
 
 @Entity({ name: 'topics' })
 export class TopicEntity {
@@ -13,4 +20,8 @@ export class TopicEntity {
 
 	@Column({ type: 'date', name: 'update_at' })
 	updateAt: Date;
+
+	@ManyToMany(() => BlogEntity)
+	@JoinTable({ name: 'blogs_topics' })
+	blogs: BlogEntity[];
 }
