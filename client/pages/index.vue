@@ -55,7 +55,7 @@
 					v-for="tag in tags"
 					:to="`/tags/${tag}`"
 				>
-					#{{ tag }}
+					#{{ tag.name }}
 				</nuxt-link>
 			</div>
 		</div>
@@ -149,13 +149,7 @@ const otherLinks = ref([
 	},
 ]);
 
-const tags = ref([
-	"webdev",
-	"javascript",
-	"programming",
-	"python",
-	"typescript",
-]);
+const tags = await useTags();
 </script>
 
 <style scoped></style>
