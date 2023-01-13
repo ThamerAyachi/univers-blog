@@ -62,7 +62,7 @@ export class BlogService {
 
 	async findAll(): Promise<BlogEntity[]> {
 		let blogs = await this.blogRepository.find({
-			relations: ['author', 'topics'],
+			relations: ['author', 'topics', 'comments'],
 		});
 		blogs.forEach((blog) => delete blog.author.password);
 		return blogs.reverse();
