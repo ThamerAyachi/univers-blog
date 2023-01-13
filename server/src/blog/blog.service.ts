@@ -65,7 +65,7 @@ export class BlogService {
 			relations: ['author', 'topics'],
 		});
 		blogs.forEach((blog) => delete blog.author.password);
-		return blogs;
+		return blogs.reverse();
 	}
 
 	async findOne(parameter: string, value: string): Promise<BlogEntity> {
