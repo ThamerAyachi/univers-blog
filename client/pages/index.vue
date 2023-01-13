@@ -53,7 +53,7 @@
 				<nuxt-link
 					class="px-5 p-2 text-gray-700 hover:bg-purple-100 hover:text-purple-600 rounded block"
 					v-for="tag in tags"
-					:to="`/tags/${tag}`"
+					:to="`/tags/${tag.name?.toLowerCase()}`"
 				>
 					#{{ tag.name }}
 				</nuxt-link>
