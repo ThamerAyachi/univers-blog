@@ -25,7 +25,9 @@
 						class="font-semibold text-gray-700 transform duration-200 hover:text-black hover:bg-gray-100 p-1 rounded"
 						>{{ article.author?.fullName }}</nuxt-link
 					>
-					<p class="text-xs text-gray-500 p-1">Jan 6</p>
+					<p class="text-xs text-gray-500 p-1">
+						{{ setDate() }}
+					</p>
 				</div>
 			</div>
 			<!-- content -->
@@ -53,7 +55,7 @@
 						class="flex items-center space-x-2 transform duration-200 hover:text-black hover:bg-gray-100 p-1 px-2 rounded"
 					>
 						<nuxt-icon name="comment" />
-						<span class="pb-1">3 comments</span>
+						<span class="pb-1">{{ article.comments.length }} comments</span>
 					</nuxt-link>
 					<nuxt-link
 						to="/"
@@ -68,6 +70,7 @@
 
 <script>
 import useColor from "~~/shared/useColor";
+import { formatDate } from "~~/shared/useDate";
 
 export default {
 	props: {
@@ -88,6 +91,9 @@ export default {
 		getColor() {
 			const color = useColor();
 			return color;
+		},
+		setDate() {
+			return formatDate(this.article.createAt);
 		},
 	},
 };
