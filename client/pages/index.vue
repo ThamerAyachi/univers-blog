@@ -3,7 +3,10 @@
 		<!-- section 1 -->
 		<div class="col-span-3 hidden xl:block space-y-5">
 			<!-- part 1 -->
-			<div class="bg-white border border-gray-200 rounded shadow-sm p-5">
+			<div
+				v-if="store.token == ''"
+				class="bg-white border border-gray-200 rounded shadow-sm p-5"
+			>
 				<h2 class="text-2xl font-bold">
 					Universe Blog🧾💫 is a community of amazing peoples
 				</h2>
@@ -12,16 +15,18 @@
 				</p>
 				<!-- buttons -->
 				<div class="space-y-2">
-					<button
-						class="text-purple-600 font-semibold border border-purple-600 p-2 rounded hover:bg-purple-600 hover:text-white w-full"
+					<nuxt-link
+						to="/register"
+						class="text-purple-600 font-semibold border border-purple-600 p-2 rounded hover:bg-purple-600 hover:text-white w-full block text-center"
 					>
 						Create account
-					</button>
-					<button
-						class="text-gray-500 hover:text-purple-600 hover:bg-purple-200 p-2 rounded w-full"
+					</nuxt-link>
+					<nuxt-link
+						to="/enter"
+						class="text-gray-500 hover:text-purple-600 hover:bg-purple-200 p-2 rounded w-full block text-center"
 					>
 						Log in
-					</button>
+					</nuxt-link>
 				</div>
 			</div>
 			<!-- part 2 -->
@@ -110,6 +115,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import store from "~~/store";
 
 const articles = await useArticles();
 

@@ -87,6 +87,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+definePageMeta({
+	middleware: ["is-login"],
+});
+
 const router = useRouter();
 
 const register = ref({ fullName: "", email: "", password: "" });

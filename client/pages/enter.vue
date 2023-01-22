@@ -85,6 +85,10 @@ import { ref } from "vue";
 import { enterWithEmail } from "~~/composables/useAuth";
 import store from "~~/store";
 
+definePageMeta({
+	middleware: ["is-login"],
+});
+
 const router: any = useRouter();
 const currentRoute = ref(router.currentRoute);
 const create = ref(currentRoute.value.query.create);

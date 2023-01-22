@@ -38,7 +38,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="space-x-4 flex">
+			<div v-if="store.token == ''" class="space-x-4 flex">
 				<nuxt-link
 					to="/enter"
 					class="text-gray-500 hover:text-purple-600 hover:bg-purple-200 p-2 rounded"
@@ -52,14 +52,49 @@
 					Create account
 				</nuxt-link>
 			</div>
+			<div v-else class="relative">
+				<button
+					@click="show = !show"
+					class="rounded-full overflow-hidden flex items"
+				>
+					<img class="w-10" :src="res.avatar" alt="" />
+				</button>
+				<div
+					v-show="show"
+					class="absolute right-0 py-2 mt-2 bg-indigo-500 rounded-md shadow-xl w-44"
+				>
+					<router-link
+						to="/"
+						class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+					>
+						Dropdown List 1
+					</router-link>
+					<router-link
+						to="/"
+						class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+					>
+						Dropdown List 2
+					</router-link>
+					<router-link
+						to="/"
+						class="block px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-400 hover:text-indigo-100"
+					>
+						Dropdown List 3
+					</router-link>
+				</div>
+			</div>
 		</nav>
 	</header>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import store from "~~/store";
 
 const searchBar = ref("");
+const show = ref(false);
+const [res] = await useUser();
+console.log(res);
 
 const search = () => {
 	console.log(searchBar.value);
