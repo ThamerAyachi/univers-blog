@@ -48,6 +48,15 @@
 						/>
 					</div>
 
+					<!-- error message -->
+					<div
+						v-if="!result"
+						class="mb-5 bg-red-100 p-2 rounded border border-red-300 text-red-800"
+					>
+						<h2 class="text-xl mb-3">Oops!... try again</h2>
+						<p>Email or Password not valid</p>
+					</div>
+
 					<!-- Submit button -->
 					<button
 						type="submit"
@@ -74,6 +83,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { enterWithEmail } from "~~/composables/useAuth";
+import store from "~~/store";
 
 const router: any = useRouter();
 const currentRoute = ref(router.currentRoute);
@@ -85,7 +95,10 @@ const result = ref(true);
 const enterFun = async () => {
 	const [res, err] = await enterWithEmail(enter.value);
 	if (err) result.value = false;
-	else if (res) console.log(res);
+	else if (res) {
+		store.SET_TOKEN(`Bearer ${res.token}`);
+		router.push("/");
+	}
 };
 </script>
 

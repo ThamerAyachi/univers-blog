@@ -22,6 +22,9 @@
     "@nuxtjs/composition-api": "^0.33.1",
     "axios": "^1.2.2",
     "nuxt-icons": "^3.0.0",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuex": "^4.1.0",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^2.0.0"
   }
 }
