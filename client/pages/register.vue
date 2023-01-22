@@ -57,6 +57,7 @@
 						v-if="result.isFound"
 						class="mb-5 bg-red-100 p-2 rounded border border-red-300 text-red-800"
 					>
+						<h2 class="text-2xl mb-3">Oops!... try again</h2>
 						<p v-for="m in result.messages">{{ m }}</p>
 					</div>
 
