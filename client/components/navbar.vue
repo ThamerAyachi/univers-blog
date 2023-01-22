@@ -61,8 +61,19 @@
 				</button>
 				<div
 					v-show="show"
-					class="absolute right-0 py-2 mt-2 bg-white rounded-md shadow-xl w-44"
+					class="absolute right-0 py-2 bg-white shadow-xl w-52 space-y-3 border rounded"
 				>
+					<router-link
+						to="/"
+						class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-black border-b pb-3"
+					>
+						<p class="font-semibold text-gray-700 text-lg">
+							{{ res.fullName }}
+						</p>
+						<p class="text-gray-500">
+							@{{ res.fullName.replace(" ", "").toLowerCase() }}
+						</p>
+					</router-link>
 					<router-link
 						to="/"
 						class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-black"
@@ -70,7 +81,7 @@
 						Dropdown List 1
 					</router-link>
 					<button
-						class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-black w-full text-left"
+						class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-black w-full text-left border-t"
 						@click="logout()"
 					>
 						Logout
