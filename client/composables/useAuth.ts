@@ -31,12 +31,18 @@ export async function useUser(): Promise<ApiResult> {
 		const config = useRuntimeConfig();
 		const res = await axios.get(`${config.public.API_URL}/user`, {
 			headers: {
-				Authorization: store.token,
+				Authorization: useState("token").value as string,
 			},
 		});
 		return [res.data, null];
 	} catch (e) {
-		store.SET_TOKEN("");
+		useCookie("token").value = null;
+		useState("token").value = null;
 		return [null, e];
 	}
+}
+
+export async function logout(): Promise<void> {
+	useCookie("token").value = null;
+	useState("token").value = null;
 }

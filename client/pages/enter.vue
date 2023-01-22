@@ -95,12 +95,12 @@ const create = ref(currentRoute.value.query.create);
 
 const enter = ref({ email: "", password: "" });
 const result = ref(true);
-
 const enterFun = async () => {
 	const [res, err] = await enterWithEmail(enter.value);
 	if (err) result.value = false;
 	else if (res) {
-		store.SET_TOKEN(`Bearer ${res.token}`);
+		useCookie("token").value = `Bearer ${res.token}`;
+		useState("token").value = `Bearer ${res.token}`;
 		router.push("/");
 	}
 };

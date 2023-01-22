@@ -4,7 +4,7 @@
 		<div class="col-span-3 hidden xl:block space-y-5">
 			<!-- part 1 -->
 			<div
-				v-if="store.token == ''"
+				v-if="!useState('token').value"
 				class="bg-white border border-gray-200 rounded shadow-sm p-5"
 			>
 				<h2 class="text-2xl font-bold">
@@ -115,7 +115,6 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import store from "~~/store";
 
 const articles = await useArticles();
 
