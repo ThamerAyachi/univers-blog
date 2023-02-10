@@ -83,7 +83,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { enterWithEmail } from "~~/composables/useAuth";
-import store from "~~/store";
 
 definePageMeta({
 	middleware: ["is-login"],
@@ -101,6 +100,7 @@ const enterFun = async () => {
 	else if (res) {
 		useCookie("token").value = `Bearer ${res.token}`;
 		useState("token").value = `Bearer ${res.token}`;
+		useState("user").value = await useUser();
 		router.push("/");
 	}
 };

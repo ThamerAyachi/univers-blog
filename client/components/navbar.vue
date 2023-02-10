@@ -68,10 +68,12 @@
 						class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-black border-b pb-3"
 					>
 						<p class="font-semibold text-gray-700 text-lg">
-							{{ res.fullName }}
+							{{ res ? res.fullName : "" }}
 						</p>
 						<p class="text-gray-500">
-							@{{ res.fullName.replace(" ", "").toLowerCase() }}
+							@{{
+								res?.fullName ? res.fullName.replace(" ", "").toLowerCase() : ""
+							}}
 						</p>
 					</router-link>
 					<router-link
@@ -95,11 +97,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { logout } from "~~/composables/useAuth";
+import { useUser } from "~~/composables/useAuth";
+import IUser from "~~/types/IUser";
 
 let avatar: any = ref(null);
 const searchBar = ref("");
 const show = ref(false);
-const [res] = await useUser();
+const res: IUser | null = await useUser();
 if (res) avatar = res.avatar;
 
 const search = () => {

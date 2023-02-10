@@ -3,8 +3,8 @@ import axios from "axios";
 import IsignUp from "~~/types/IsignUp";
 import IsignIn from "~~/types/IsignIn";
 
-import store from "~~/store";
 import { ApiResult } from "~~/types/data";
+import IUser from "~~/types/IUser";
 
 export async function registerWithEmail(data: IsignUp): Promise<ApiResult> {
 	try {
@@ -26,20 +26,10 @@ export async function enterWithEmail(data: IsignIn): Promise<ApiResult> {
 	}
 }
 
-export async function useUser(): Promise<ApiResult> {
-	try {
-		const config = useRuntimeConfig();
-		const res = await axios.get(`${config.public.API_URL}/user`, {
-			headers: {
-				Authorization: useState("token").value as string,
-			},
-		});
-		return [res.data, null];
-	} catch (e) {
-		useCookie("token").value = null;
-		useState("token").value = null;
-		return [null, e];
-	}
+export async function useUser(): Promise<IUser | null> {
+	if (!useCookie("token").value) return null;
+	let token: string = (useCookie("token").value as string).split(" ")[1];
+	return JSON.parse(atob(token.split(".")[1]));
 }
 
 export async function logout(): Promise<void> {

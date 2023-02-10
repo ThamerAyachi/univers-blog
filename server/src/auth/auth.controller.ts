@@ -45,12 +45,10 @@ export class AuthController {
 		if (!(await comparePassword(dto.password, user.password)))
 			throw new UnauthorizedException('invalid credentials');
 
-		const token = await this.jwtService.signAsync({
-			id: user.id,
-			email: user.email,
-		});
-
 		delete user.password;
+		const token = await this.jwtService.signAsync({
+			...user,
+		});
 
 		return {
 			message: 'Sign In Succuss!',
